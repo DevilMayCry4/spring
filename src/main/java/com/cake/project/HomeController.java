@@ -9,8 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController; 
 import com.cake.project.Version;
 
 
@@ -46,5 +45,9 @@ public class HomeController {
     	return v;
     }
 	
-	
+    @RequestMapping(value="/login.do")
+    public String  login(){
+    	 
+    	return "s";
+    }
 }
