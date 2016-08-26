@@ -8,22 +8,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CustomerController extends BaseController {
 	
+	private final String methodName = "/customer/";
 	
-    @RequestMapping(value="/customer/login.do",method = RequestMethod.POST)
-    public ResponDataObject  login(@RequestParam(value ="token") String token, @RequestParam(value="loginName") String name){
-  
-    	return this.isLogin(token);
+    @RequestMapping(value= methodName + "login.do" ,method = RequestMethod.POST)
+    public ResponDataObject  login(@RequestParam(value ="loginPassword") String loginPassword, @RequestParam(value="loginName") String name){
+    	ResponDataObject responDataObject = new ResponDataObject();
+    	responDataObject.code = ResponCode.success;
+    	responDataObject.getItem().put("s", "v"); 
+    	return responDataObject;
     }
     
    public ResponDataObject isLogin(String token) {
 	    ResponDataObject r = new ResponDataObject();
 	    if (token != null && token.length() > 0 ) {
-			r.mCode = "200";
-			r.mMsg = "";
+			return null;
 		}
 	    else{
-	    	r.mCode = "430";
-	    	r.mMsg = "未登录";
+	    	r.code = ResponCode.needLogin;
+	    	r.msg = "未登录";
 	    }
 	   return r; 
 }

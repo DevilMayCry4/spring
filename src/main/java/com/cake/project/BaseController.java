@@ -1,18 +1,28 @@
 package com.cake.project;
+ 
 
-import java.util.HashMap;
+import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory; 
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.ExceptionHandler; 
+import com.cake.project.ResponCode;
 public class BaseController {
 
-	 @ResponseBody
-	   @ExceptionHandler(MissingServletRequestParameterException.class)
-	   public Object missingParamterHandler(final Exception exception) {
-		   
-	       // exception handle while specified arguments are not available requested service only. it handle when request is as api json service       
-	       return  new HashMap() {{ put("result", "failed"); put("type", exception.getClass().getName());}};
-	   } 
+	static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+	
+	@ExceptionHandler(MissingServletRequestParameterException.class)
+	public ResponDataObject handleMissingServletRequestParameterException(MissingServletRequestParameterException e,
+	        HttpServletRequest request) {
+        String mString =  e.getParameterName() + " missing";
+        
+		logger.info(mString);
+		
+		ResponDataObject object = new ResponDataObject();
+		object.code = ResponCode.needLogin;
+		object.msg = mString;
+		return object;
+		
+	}
 }
