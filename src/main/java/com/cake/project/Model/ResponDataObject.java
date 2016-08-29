@@ -32,14 +32,11 @@ public class ResponDataObject {
 	}
 	
 	public HashMap<String, Object> getItem() {
-		if (mItem == null) {
-			mItem = new HashMap<String, Object>(); 
-		}
+		 
 		return mItem;
 	}
 	
  
-	
 	public List<?> getItems() {
 		return items;
 	}
