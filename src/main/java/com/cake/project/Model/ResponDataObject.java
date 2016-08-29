@@ -1,15 +1,18 @@
-package com.cake.project;
+package com.cake.project.Model; 
 import java.util.HashMap;
-import com.cake.project.ResponCode;
+import java.util.List;
+
+import com.cake.project.Model.ResponCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
 public class ResponDataObject {
 
-	ResponCode code;
+ ResponCode code;
     String msg;
-	private HashMap<String, String> mItem;
+	private HashMap<String, Object> mItem;
+	 List<?> items;
 	
 	public ResponCode getCode() {
 		return code;
@@ -19,6 +22,7 @@ public class ResponDataObject {
 		return msg;
 	}
 	
+
 	public void setCode(ResponCode c){
 		code = c;
 	}
@@ -27,14 +31,23 @@ public class ResponDataObject {
 		
 	}
 	
-	public HashMap<String, String> getItem() {
+	public HashMap<String, Object> getItem() {
+		if (mItem == null) {
+			mItem = new HashMap<String, Object>(); 
+		}
 		return mItem;
 	}
 	
-	public ResponDataObject () {
-		mItem = new HashMap<String, String>();
-		
+ 
+	
+	public List<?> getItems() {
+		return items;
 	}
+	
+	public void setItems(List<?> items) {
+		this.items = items;
+	}
+	
+	
 
-	 
 }

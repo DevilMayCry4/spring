@@ -1,14 +1,17 @@
-package com.cake.project;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+package com.cake.project.Model;
+ 
+import com.fasterxml.jackson.annotation.JsonValue; 
  
 public enum ResponCode
 {
 	success(200),
     needLogin(530),
-    requireParam(531);
+    requireParam(531),
+	userNameNotExist(532),
+	wrongPassword(533),
+	userAlreadyExist(534),
+	excutionFail(535),
+	;
 
     private int _value;
 

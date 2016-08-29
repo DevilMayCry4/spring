@@ -1,4 +1,4 @@
-package com.cake.project;
+package com.cake.project.Model;
 
 public class Version {
 
