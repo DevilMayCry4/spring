@@ -30,5 +30,13 @@ public class PropertyService extends BaseService {
 				new PorpertyRowMapper());
 		return properties; 
 	}
+	
+	public List<Property> getPropertyLsit(String parentId) {
+		String query = String.format( "SELECT * FROM propertylist WHERE parentId = %s", parentId); 
+
+		List<Property> properties  = jdbcTemplate.query(query,
+				new PorpertyRowMapper());
+		return properties; 
+	}
 
 }

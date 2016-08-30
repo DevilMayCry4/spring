@@ -33,7 +33,16 @@ public class ConfigController extends BaseController {
 	    service.jdbcTemplate = jdbcTemplate;
 	    object.setCode(ResponCode.success);
 	    JSONObject params = new JSONObject(cityString);
-	    object.setItems(service.getPropertyLsit(params.getInt("cityId")));
+	    String paremtId = params.getString("parentId");
+	    if (paremtId != null) {
+
+	    	 object.setItems(service.getPropertyLsit(paremtId));
+		}
+	    else{
+	    	 int cityId = params.getInt("cityId");
+	    	 object.setItems(service.getPropertyLsit(cityId));
+	    }
+	   
 		return object;
 	}
 }
