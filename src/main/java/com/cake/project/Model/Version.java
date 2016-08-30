@@ -10,6 +10,7 @@ public class Version {
 	private int     versionCode;
 	private String  updateUrl;
 	private String  updateNote;
+	private String code = "1";
 	
 	public Version(String pmallUrl,String feedbackUrl,String fmarketUrl,String billDetailUrl,
 			String versionName,int versionCode,String updateUrl,String updateNote){
@@ -86,5 +87,14 @@ public class Version {
 	public void setUpdateNote(String updateNote) {
 		this.updateNote = updateNote;
 	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
 	
 }

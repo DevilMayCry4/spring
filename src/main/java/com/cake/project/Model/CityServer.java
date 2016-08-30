@@ -29,10 +29,6 @@ public class CityServer extends BaseService {
 
 		List<City> cities  = jdbcTemplate.query(query,
 				new CityRowMapper());
-		City city = cities.get(0);
-		String string = city.cityName;
-		logger.info(string);
-
 		return cities; 
 	}
 

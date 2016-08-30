@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  
 public enum ResponCode
 {
-	success(200),
+	success(1),
     needLogin(530),
     requireParam(531),
 	userNameNotExist(532),
