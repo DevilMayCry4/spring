@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cake.project.Model.ResponCode;
 import com.cake.project.Model.ResponDataObject;
 import com.cake.project.Model.User;
+import com.cake.project.Model.UserService;
 
 @RestController
 public class CustomerController extends BaseController {
@@ -84,23 +85,23 @@ public class CustomerController extends BaseController {
     		@RequestParam(value="propertyId",required=false) String propertyId,
     		@RequestParam(value="inviteCode",required=false) String inviteCode) {
 
+    	UserService service = new UserService();
+    	service.jdbcTemplate = jdbcTemplate;
     	ResponDataObject responDataObject = new ResponDataObject();
-    	if (this.isUserExist(name)) {
+    	if (service.isUserAlreadyExist(name)) {
 			responDataObject.setCode( ResponCode.userAlreadyExist);
-			responDataObject.setMsg("用户已经存在");;
+			responDataObject.setMsg("用户已经存在");
 		}else{
-			 String sql = String.format("INSERT INTO user (loginName, nickname,fullName,password) VALUES ('%s', '%s','%s','%s')",name,nickName,fullName,password);
-			 logger.info(sql); 
-			 try {
-				jdbcTemplate.execute(sql);
-				responDataObject.setCode( ResponCode.success);
+			 
+			if (service.createUser(name, password, nickName, fullName,propertyId)) {	 
+			responDataObject.setCode( ResponCode.success);
+			
+		 
 				
-			} catch (Exception e) {
+			}else{
 				responDataObject.setCode( ResponCode.excutionFail);
 				responDataObject.setMsg("注册失败");
-				// TODO: handle exception
 			}
-			
 		}
     	return responDataObject;
 	}
@@ -135,5 +136,14 @@ public class CustomerController extends BaseController {
 	    }
 	   return r; 
 }
+   
+   public void  setLoginUser(String name,ResponDataObject object){
+		UserService service = new UserService();
+    	service.jdbcTemplate = jdbcTemplate;
+	    User user = service.getUser(name);
+	    object.getItem().put("item", user);
+	    name 
+	   
+   }
 
 }

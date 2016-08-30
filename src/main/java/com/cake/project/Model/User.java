@@ -8,6 +8,8 @@ public class User {
 	String gender;
 	String nickname;
 	String loginName;
+	String token;
+	
 	public String getAvatar() {
 		return avatar;
 	}
@@ -43,6 +45,12 @@ public class User {
 	}
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
+	}
+	public String getToken() {
+		return "ssssxxxxx00";
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 

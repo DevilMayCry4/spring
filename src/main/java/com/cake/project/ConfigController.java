@@ -1,16 +1,15 @@
 package com.cake.project;
 
-  
-import org.springframework.web.bind.annotation.RequestBody;
+   
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod; 
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cake.project.Model.PropertyService;
 import com.cake.project.Model.CityServer; 
 import com.cake.project.Model.ResponCode;
-import com.cake.project.Model.ResponDataObject; 
-import org.json.JSONObject;
+import com.cake.project.Model.ResponDataObject;  
  
 @RestController
 public class ConfigController extends BaseController {
@@ -27,20 +26,22 @@ public class ConfigController extends BaseController {
 	}
 	
 	@RequestMapping(value="/property/list.do",method = RequestMethod.POST)
-	public ResponDataObject getPropertyList(@RequestBody String  cityString){
+	public ResponDataObject getPropertyList(@RequestParam(name = "parentId",required=false ) String parentId ,
+			@RequestParam(name="cityId",required=false) String cityId){
 		ResponDataObject object = new ResponDataObject();
 	    PropertyService service = new PropertyService();
 	    service.jdbcTemplate = jdbcTemplate;
-	    object.setCode(ResponCode.success);
-	    JSONObject params = new JSONObject(cityString);
-	    String paremtId = params.getString("parentId");
-	    if (paremtId != null) {
+	    object.setCode(ResponCode.success); 
+	    if (parentId != null) {
 
-	    	 object.setItems(service.getPropertyLsit(paremtId));
+	    	 object.setItems(service.getPropertyLsit(parentId));
 		}
-	    else{
-	    	 int cityId = params.getInt("cityId");
-	    	 object.setItems(service.getPropertyLsit(cityId));
+	    else if(cityId != null){ 
+	    	
+	    	 object.setItems(service.getPropertyLsit(Integer.parseInt(cityId)));
+	    }else{
+	    	object.setCode(ResponCode.requireParam);
+	    	object.setMsg("miss parentId or cityI");
 	    }
 	   
 		return object;

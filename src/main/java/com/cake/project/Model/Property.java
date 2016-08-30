@@ -8,6 +8,8 @@ public class Property  extends BaseResponseObject{
 	String propertyDesc;
 	String parentId;
 	
+	
+	
     @JsonProperty("isEnd")
     boolean isEnd;
     
